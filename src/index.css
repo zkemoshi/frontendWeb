@@ -6,7 +6,6 @@
   box-sizing: border-box;
 }
 
-
 body,
 input {
   font-family: 'Poppins', sans-serif;
@@ -75,7 +74,7 @@ form.sign-in-form {
   height: 55px;
   border-radius: 55px;
   display: grid;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: 15% 75% 10%;
   padding: 0 0.4rem;
   position: relative;
 }
@@ -100,7 +99,7 @@ form.sign-in-form {
 
 .input-field input::placeholder {
   color: #aaa;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .social-text {
@@ -134,7 +133,8 @@ form.sign-in-form {
 }
 
 .btn {
-  width: 150px;
+  max-width: 380px;
+  width: 100%;
   background-color: #5995fd;
   border: none;
   outline: none;
@@ -398,4 +398,83 @@ form.sign-in-form {
     bottom: 28%;
     left: 50%;
   }
+}
+
+/* forgot password page */
+
+.forgotPasswordHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+.forgotPasswordLink {
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #04befe;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.empty-container {
+  max-width: 400px;
+  margin: 50px auto;
+}
+
+.btn-forgot {
+  max-width: 380px;
+  width: 100%;
+  background-color: #5995fd;
+  border: none;
+  outline: none;
+  height: 49px;
+  border-radius: 49px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.btn-forgot:hover {
+  background-color: #4d84e2;
+}
+.forgotTitle {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.centerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.forgot-password {
+  text-decoration: none;
+}
+
+.passwordChanged {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 50vh;
+}
+.passwordChanged .check {
+  background-color: #29befe;
+  padding: 50px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.passwordChanged .link-text {
+  text-decoration: none;
+  font-weight: 600;
 }

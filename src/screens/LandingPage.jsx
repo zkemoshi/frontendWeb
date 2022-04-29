@@ -1,12 +1,29 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Login from '../components/Auth/Login';
 import Register from '../components/Auth/Register';
-import logo from '../assets/img/log.svg';
-import registerimg from '../assets/img/register.svg';
+import logo from '../assets/img/barber.svg';
+import registerimg from '../assets/img/barber.svg';
+import authContext from '../context/auth/authContext';
+import Loading from '../components/Loading';
 
 function LandingPage() {
+  const { loading, token } = useContext(authContext);
+  const navigate = useNavigate();
+
   const [log, setLog] = useState(false);
+
+  
+  if (loading) {
+    return (
+      <>
+        <div className='centerContainer'>
+          <Loading />
+        </div>
+      </>
+    );
+  }
 
   return (
     <div className={`container ${log ? 'sign-up-mode' : ''}`}>

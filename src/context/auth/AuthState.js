@@ -23,7 +23,7 @@ const AuthState = (props) => {
   const InitialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
-    loading: null,
+    loading: false,
     user: null,
     isAdmin: false,
     error: null,
@@ -93,7 +93,7 @@ const AuthState = (props) => {
     };
 
     try {
-      const res = await axios.put(
+      const res = await axios.post(
         `/api/v1/users/forgot-password`,
         email,
         config
@@ -101,7 +101,6 @@ const AuthState = (props) => {
 
       dispatch({ type: FORGOT_PASSWORD, payload: res.data });
     } catch (error) {
-      console.log(error.response.data.message);
       dispatch({ type: PASSWORD_FAIL, payload: error.response.data.message });
     }
   };
@@ -114,7 +113,7 @@ const AuthState = (props) => {
     };
 
     try {
-      const res = await axios.put(
+      const res = await axios.post(
         `/api/v1/users/reset-password`,
         formData,
         config

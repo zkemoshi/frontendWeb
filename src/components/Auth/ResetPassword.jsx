@@ -1,20 +1,25 @@
 import { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+import PasswordChanged from '../PasswordChanged';
+
 import authContext from '../../context/auth/authContext';
 
 // Get Query Params
 const queryParams = new URLSearchParams(window.location.search);
 const resetLink = queryParams.get('resetLink');
-console.log(resetLink);
 
 function ResetPassword() {
+  const navigate = useNavigate();
   const { resetPassword, error, clearErrors } = useContext(authContext);
   const [formData, setFormData] = useState({
     newPassword: '',
     verifyPassword: '',
     resetLink,
   });
+
+  const [check, setCheck] = useState(true);
 
   const { newPassword, verifyPassword } = formData;
 
@@ -47,37 +52,43 @@ function ResetPassword() {
   useEffect(() => {
     if (error) {
       toast.error(error);
+      if (error === 'Your password has been Changed') {
+        setCheck(false);
+        setTimeout(() => {
+          clearErrors();
+          navigate('/login');
+        }, 5000);
+      }
       clearErrors();
     }
   }, [error]);
 
   return (
-    <div className='password-reset container'>
-      <header className='header'>
-        <p>Reset Password</p>
+    <div>
+      <header className='forgotPasswordHeader'>
+        <p className='forgotTitle'>Reset Password</p>
         <Link className='forgotPasswordLink' to='/login'>
           Sign In
         </Link>
       </header>
 
-      <main>
-        <form onSubmit={onSubmit}>
-          <div className='form-group'>
+      {check ? (
+        <main className='empty-container'>
+          <form onSubmit={onSubmit}>
             <input
               type='password'
-              className='emailInput'
-              placeholder='New newPassword'
+              className='input-field'
+              placeholder='Enter newPassword'
               id='newPassword'
               value={newPassword}
               name='newPassword'
               required
               onChange={onChange}
             />
-          </div>
-          <div className='form-group'>
+
             <input
               type='password'
-              className='emailInput'
+              className='input-field'
               placeholder='Confirm newPassword'
               id='verifyPassword'
               name='verifyPassword'
@@ -85,15 +96,15 @@ function ResetPassword() {
               value={verifyPassword}
               onChange={onChange}
             />
-          </div>
 
-          <div className='signInBar'>
-            <button type='submit' className='signInText'>
+            <button type='submit' className='btn-forgot'>
               Create New Password
             </button>
-          </div>
-        </form>
-      </main>
+          </form>
+        </main>
+      ) : (
+        <PasswordChanged />
+      )}
     </div>
   );
 }
